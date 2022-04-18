@@ -215,6 +215,12 @@ class Person(object):
     def __repr__(self):
         """Return string representation."""
         return self.name
+    
+    def __ge__(self, other):
+        return self.id > other.id
+
+    def __lt__(self, other):
+        return self.id < other.id
 
     @staticmethod
     def _init_fertility(male, config):
@@ -710,7 +716,7 @@ class Person(object):
     def recount_life_history(self):
         """Print out the major life events in this person's simulated life."""
         for life_event in self.life_events:
-            print life_event
+            print(life_event)
 
     def get_feature(self, feature_type):
         """Return this person's feature of the given type."""
@@ -2154,7 +2160,7 @@ class PersonExNihilo(Person):
         """Simulate from marriage to the present day for children potentially being born."""
         config = self.sim.config
         # Simulate sex (and thus potentially birth) in marriage thus far
-        for year in xrange(self.marriage.year, self.sim.true_year+1):
+        for year in range(self.marriage.year, self.sim.true_year+1):
             # If someone is pregnant and due this year, have them give birth
             if self.pregnant or self.spouse.pregnant:
                 pregnant_one = self if self.pregnant else self.spouse

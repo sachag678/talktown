@@ -682,6 +682,12 @@ class Parcel(object):
         self.lots = []
         self.neighbors = []
         self.coords = coords
+    
+    def __ge__(self, other):
+        return self.id > other.id
+    def __lt__(self, other):
+        return self.id < other.id
+
 
     @staticmethod
     def determine_house_numbering(block_number, side_of_street, config):
@@ -690,7 +696,7 @@ class Parcel(object):
         house_numbers = []
         house_number_increment = int(100.0 / n_buildings)
         even_or_odd = 0 if side_of_street == "E" or side_of_street == "N" else 1
-        for i in xrange(n_buildings):
+        for i in range(n_buildings):
             base_house_number = (i * house_number_increment) - 1
             house_number = base_house_number + int(random.random() * house_number_increment)
             if house_number % 2 == (1-even_or_odd):
@@ -844,6 +850,12 @@ class Tract(Lot):
         """Initialize a Tract object."""
         self.size = size
         super(Tract, self).__init__(town)
+    
+    def __ge__(self, other):
+        return self.size > other.size
+    
+    def __lt__(self, other):
+        return self.size < other.size
 
 
 class PriorityQueue:

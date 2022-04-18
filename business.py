@@ -688,7 +688,7 @@ class ApartmentComplex(Business):
             # Make it a nice even number
             n_units_to_build -= 1
         apartment_units = []
-        for i in xrange(n_units_to_build):
+        for i in range(n_units_to_build):
             unit_number = i + 1
             apartment_units.append(
                 Apartment(apartment_complex=self, lot=self.lot, unit_number=unit_number)

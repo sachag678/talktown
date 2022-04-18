@@ -452,12 +452,12 @@ class Demolition(Event):
         building.lot.building = None
         building.lot.former_buildings.append(building)
         # If this is a dwelling place, have its now-displaced residents find new housing
-        if building.__class__.__name__ is 'House':
+        if building.__class__.__name__ == 'House':
             self.town.dwelling_places.remove(building)
             self.town.former_dwelling_places.add(building)
             if building.residents:
                 self._have_the_now_displaced_residents_move(house_or_apartment_unit=building)
-        if building.__class__.__name__ is 'ApartmentComplex':
+        if building.__class__.__name__ == 'ApartmentComplex':
             for unit in building.units:
                 self.town.dwelling_places.remove(unit)
                 self.town.former_dwelling_places.add(unit)
@@ -619,7 +619,7 @@ class Divorce(Event):
             )
             if spouse2 is spouse1.love_interest:
                 new_love_interest = max(spouse1.relationships, key=lambda r: spouse1.relationships[r].spark)
-                if spouse1.relationships[new_love_interest] > 0:
+                if spouse1.relationships[new_love_interest].spark > 0:
                     spouse1.love_interest = new_love_interest
                     spouse1.spark_of_love_interest = spouse1.relationships[new_love_interest].spark
         if random.random() < config.chance_a_divorcee_falls_out_of_love:
@@ -632,7 +632,7 @@ class Divorce(Event):
             )
             if spouse1 is spouse2.love_interest:
                 new_love_interest = max(spouse2.relationships, key=lambda r: spouse2.relationships[r].spark)
-                if spouse2.relationships[new_love_interest] > 0:
+                if spouse2.relationships[new_love_interest].spark > 0:
                     spouse2.love_interest = new_love_interest
                     spouse2.spark_of_love_interest = spouse2.relationships[new_love_interest].spark
 
